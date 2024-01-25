@@ -1,0 +1,32 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/services
+
+- Ferramentas:
+    - Pi-hole:
+        href: http://pi-hole.local/admin
+        description: DNS Server and ad-blocker
+        icon: https://avatars.githubusercontent.com/u/16827203?s=48&v=4
+        server: my-docker
+        container: pihole
+
+    - Nginx-proxy-manager:
+        href: http://nginx.local
+        description: Reverse Proxy
+        icon: https://github.com/NginxProxyManager/nginx-proxy-manager/blob/develop/frontend/app-images/logo-256.png?raw=true
+        server: my-docker
+        container: nginx-proxy-manager
+
+    - Portainer:
+        href: http://portainer.local
+        description: Docker Manager
+        icon: https://avatars.githubusercontent.com/u/22225832?s=48&v=4
+        server: my-docker
+        container: portainer
+
+- Pessoal:
+    - Minecraft:
+        description: Vanilla Minecraft 1.16.1 server
+        icon: http://www.rw-designer.com/icon-view/5547.png
+        server: my-docker
+        container: vanilla-minecraft-server
