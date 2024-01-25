@@ -1,0 +1,25 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/settings
+
+## General
+
+title: "Homepage"
+
+language: pt-BR
+
+background:
+  # image: "https://r4.wallpaperflare.com/wallpaper/410/867/750/vector-forest-sunset-forest-sunset-forest-wallpaper-b3abc35d0d699b056fa6b247589b18a8.jpg"
+  image: "https://r4.wallpaperflare.com/wallpaper/533/163/784/digital-digital-art-artwork-illustration-minimalism-hd-wallpaper-d6caac3492787d76e8e36b4298facda4.jpg"
+  # image: "https://r4.wallpaperflare.com/wallpaper/658/800/994/simple-simple-background-minimalism-black-background-wallpaper-f8967d3850106c9810dce14e7892047a.jpg"
+  # blur: sm
+
+cardBlur: sm
+
+## layout
+
+## Providers
+
+providers:
+  openweathermap: openweathermapapikey
+  weatherapi: weatherapiapikey

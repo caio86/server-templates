@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  factorio-server:
+    image: factoriotools/factorio:1.1.101
+    container_name: factorio-server
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    ports:
+      - "34197:34197/udp"
+      - "27015:27015/tcp"
+    volumes:
+      - /opt/factorio/:/factorio
+
+networks:
+  default:
+    name: proxy-tier
+    external: true

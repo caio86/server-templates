@@ -1,0 +1,93 @@
+version: "3.8"
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=900
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /samba/teste/config/sonarr:/config
+      - /samba/teste/series:/tv #optional
+      - /samba/teste/downloads:/downloads #optional
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+    networks:
+      - proxy-tier
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=900
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /samba/teste/config/prowlarr:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+    networks:
+      - proxy-tier
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=900
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /samba/teste/config/radarr:/config
+      - /samba/teste/filmes:/movies #optional
+      - /samba/teste/downloads:/downloads #optional
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+    networks:
+      - proxy-tier
+
+  # deluge:
+  #   image: lscr.io/linuxserver/deluge:latest
+  #   container_name: deluge
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=900
+  #     - TZ=America/Sao_Paulo
+  #     - DELUGE_LOGLEVEL=error #optional
+  #   volumes:
+  #     - /samba/teste/config:/config
+  #     - /samba/teste/downloads:/downloads
+  #   ports:
+  #     - 8112:8112
+  #     - 6881:6881
+  #     - 6881:6881/udp
+  #     - 58846:58846 #optional
+  #   restart: unless-stopped
+  #   networks:
+  #     - proxy-tier
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=900
+      - TZ=America/Sao_Paulo
+      - WEBUI_PORT=8080
+    volumes:
+      - /samba/teste/config:/config
+      - /samba/teste/downloads:/downloads
+    ports:
+      - 8080:8080
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
+    networks:
+      - proxy-tier
+
+networks:
+  proxy-tier:
+    external: true
