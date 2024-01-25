@@ -18,6 +18,8 @@ cardBlur: sm
 
 ## layout
 
+headerStyle: clean
+
 ## Providers
 
 providers:
