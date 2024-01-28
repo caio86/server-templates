@@ -5,28 +5,60 @@
 - Ferramentas:
     - Pi-hole:
         href: http://pi-hole.local/admin
+        icon: pi-hole.png
         description: DNS Server and ad-blocker
-        icon: https://avatars.githubusercontent.com/u/16827203?s=48&v=4
+        widget:
+          type: pihole
+          url: http://pihole:80
+          key: {{HOMEPAGE_VAR_PIHOLE_API_KEY}}
         server: my-docker
         container: pihole
 
     - Nginx-proxy-manager:
         href: http://nginx.local
+        icon: nginx-proxy-manager.png
         description: Reverse Proxy
-        icon: https://github.com/NginxProxyManager/nginx-proxy-manager/blob/develop/frontend/app-images/logo-256.png?raw=true
         server: my-docker
         container: nginx-proxy-manager
 
     - Portainer:
         href: http://portainer.local
+        icon: portainer.png
         description: Docker Manager
-        icon: https://avatars.githubusercontent.com/u/22225832?s=48&v=4
         server: my-docker
         container: portainer
 
 - Pessoal:
+    - Nextcloud:
+        href: https://nextcloud.caiol.duckdns.org
+        icon: nextcloud.png
+        description: Personal Cloud Storage
+        siteMonitor: https://nextcloud.caiol.duckdns.org
+        widget:
+          type: nextcloud
+          url: https://nextcloud.caiol.duckdns.org
+          username: {{HOMEPAGE_VAR_NEXTCLOUD_USER}}
+          password: {{HOMEPAGE_VAR_NEXTCLOUD_PASSWORD}}
+        server: my-docker
+        container: nextcloud-app
+
     - Minecraft:
+        icon: minecraft.png
         description: Vanilla Minecraft 1.16.1 server
-        icon: http://www.rw-designer.com/icon-view/5547.png
+        widget:
+          type: minecraft
+          url: http://minecraft.local
         server: my-docker
         container: vanilla-minecraft-server
+
+- Midia:
+    - Jellyfin:
+        href: http://jellyfin.local
+        icon: jellyfin.png
+        description: Media Server
+        siteMonitor: https://jellyfin.europa-server.duckdns.org
+        widget:
+          type: jellyfin
+          url: http://192.168.0.12:8096
+          enableBlocks: true
+          key: {{HOMEPAGE_VAR_JELLYFIN_API_KEY}}

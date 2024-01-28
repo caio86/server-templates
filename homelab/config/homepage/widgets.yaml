@@ -2,11 +2,26 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/latest/configs/service-widgets
 
+- datetime:
+    format:
+      hour12: false
+      timeStyle: short
+
+- weatherapi:
+    latitude: {{HOMEPAGE_VAR_LOCATION_LATITUDE}}
+    longitude: {{HOMEPAGE_VAR_LOCATION_LONGITUDE}}
+    units: metric # or imperial
+    apiKey: {{HOMEPAGE_VAR_WEATHER_API_KEY}}
+    cache: 5 # Time in minutes to cache API responses, to stay within limits
+
 - resources:
+    label: System
     cpu: true
     memory: true
-    disk: /
+    cputemp: true
 
-- search:
-    provider: duckduckgo
-    target: _blank
+- resources:
+    label: Storage
+    disk:
+      - /
+      - /samba/midia

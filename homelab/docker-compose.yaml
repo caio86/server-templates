@@ -4,15 +4,54 @@ services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
-    # environment:
-    # PUID: 1000
-    # PGID: 1000
     ports:
       - 3000:3000
     volumes:
       - ./config/homepage:/app/config # Make sure your local config directory exists
       - /var/run/docker.sock:/var/run/docker.sock:ro # optional, for docker integrations
+    env_file:
+      - ./env/homepage.env
     restart: unless-stopped
+    networks:
+      - proxy-tier
+
+  nextcloud-db:
+    image: mariadb:10.6
+    container_name: nextcloud-db
+    restart: unless-stopped
+    command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
+    environment:
+      - MARIADB_AUTO_UPGRADE=1
+      - MARIADB_DISABLE_UPGRADE_BACKUP=1
+    volumes:
+      - ./data/nextcloud-db:/var/lib/mysql
+    env_file:
+      - ./env/nextcloud-db.env
+    networks:
+      - proxy-tier
+
+  nextcloud-redis:
+    image: redis:alpine
+    container_name: nextcloud-redis
+    restart: unless-stopped
+    networks:
+      - proxy-tier
+
+  nextcloud-app:
+    image: nextcloud
+    container_name: nextcloud-app
+    restart: unless-stopped
+    volumes:
+      - ./data/nextcloud-app:/var/www/html
+    environment:
+      - MYSQL_HOST=nextcloud-db
+      - REDIS_HOST=nextcloud-redis
+    env_file:
+      - ./env/nextcloud-db.env
+      - ./env/nextcloud-app.env
+    depends_on:
+      - nextcloud-db
+      - nextcloud-redis
     networks:
       - proxy-tier
 

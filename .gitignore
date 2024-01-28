@@ -1,4 +1,13 @@
-.env
+# Ignore list
+
+*.env
+
+*.tar
+*.zip
+*.gz
+*.tar.gz
+*.tgz
 
 letsencrypt/
+
 logs/
