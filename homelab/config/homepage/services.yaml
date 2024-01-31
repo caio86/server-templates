@@ -15,7 +15,7 @@
         container: pihole
 
     - Nginx-proxy-manager:
-        href: http://nginx.local
+        href: http://192.168.0.12:81
         icon: nginx-proxy-manager.png
         description: Reverse Proxy
         server: my-docker
@@ -28,6 +28,12 @@
         server: my-docker
         container: portainer
 
+    - Cockpit:
+        href: https://192.168.0.12:9090
+        icon: cockpit.png
+        description: Admin Panel
+        siteMonitor: https://192.168.0.12:9090
+
 - Pessoal:
     - Nextcloud:
         href: https://nextcloud.caiol.duckdns.org
@@ -39,8 +45,6 @@
           url: https://nextcloud.caiol.duckdns.org
           username: {{HOMEPAGE_VAR_NEXTCLOUD_USER}}
           password: {{HOMEPAGE_VAR_NEXTCLOUD_PASSWORD}}
-        server: my-docker
-        container: nextcloud-app
 
     - Minecraft:
         icon: minecraft.png
@@ -51,6 +55,13 @@
         server: my-docker
         container: vanilla-minecraft-server
 
+    - Firefly:
+        href: http://firefly.local
+        icon: firefly.png
+        description: Finances Manager
+        server: my-docker
+        container: firefly-iii
+
 - Midia:
     - Jellyfin:
         href: http://jellyfin.local
@@ -60,5 +71,87 @@
         widget:
           type: jellyfin
           url: http://192.168.0.12:8096
-          enableBlocks: true
+          enableBlocks: false
+          enableNowPlaying: true
           key: {{HOMEPAGE_VAR_JELLYFIN_API_KEY}}
+
+    - Jellystat:
+        href: http://jellystat.local
+        icon: jellystat.png
+        description: Jellyfin Statistics
+        widget:
+          type: jellyfin
+          url: http://192.168.0.12:8096
+          enableBlocks: true
+          enableNowPlaying: false
+          key: {{HOMEPAGE_VAR_JELLYFIN_API_KEY}}
+        server: my-docker
+        container: jellystat
+
+    - Radarr:
+        href: http://radarr.local
+        icon: radarr.png
+        description: Movie Manager
+        widget:
+          type: radarr
+          url: http://radarr:7878
+          key: {{HOMEPAGE_VAR_RADARR_API_KEY}}
+        server: my-docker
+        container: radarr
+
+    - Sonarr:
+        href: http://sonarr.local
+        icon: sonarr.png
+        description: TV Show Manager
+        widget:
+          type: sonarr
+          url: http://sonarr:8989
+          key: {{HOMEPAGE_VAR_SONARR_API_KEY}}
+        server: my-docker
+        container: sonarr
+
+    - Bazarr:
+        href: http://bazarr.local
+        icon: bazarr.png
+        description: Media Manager
+        widget:
+          type: bazarr
+          url: http://bazarr:6767
+          key: {{HOMEPAGE_VAR_BAZARR_API_KEY}}
+        server: my-docker
+        container: bazarr
+
+    - Prowlarr:
+        href: http://prowlarr.local
+        icon: prowlarr.png
+        description: Indexer Manager
+        widget:
+          type: prowlarr
+          url: http://prowlarr:9696
+          key: {{HOMEPAGE_VAR_PROWLARR_API_KEY}}
+        server: my-docker
+        container: prowlarr
+
+    - Transmission:
+        href: http://192.168.0.12:9091
+        icon: transmission.png
+        description: Torrent Client
+        widget:
+          type: transmission
+          url: http://192.168.0.12:9091
+          username: {{HOMEPAGE_VAR_TRANSMISSION_USERNAME}}
+          password: {{HOMEPAGE_VAR_TRANSMISSION_PASSWORD}}
+        server: my-docker
+        container: transmission
+
+    # - Qbittorrent:
+    #     href: http://192.168.0.12:8080
+    #     icon: qbittorrent.png
+    #     description: Torrent Client
+    #     widget:
+    #       type: qbittorrent
+    #       url: http://qbittorrent:8080
+    #       username: {{HOMEPAGE_VAR_QBITTORRENT_USERNAME}}
+    #       password: {{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}
+    #     server: my-docker
+    #     container: qbittorrent

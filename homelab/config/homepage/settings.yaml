@@ -26,4 +26,5 @@ layout:
   - Ferramentas: null
   - Pessoal: null
   - Midia:
+      columns: 4
       style: row
