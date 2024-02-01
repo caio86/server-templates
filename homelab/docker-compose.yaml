@@ -5,7 +5,7 @@ services:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
     volumes:
-      - ./config/homepage:/app/config # Make sure your local config directory exists
+      - ./data/homepage:/app/config # Make sure your local config directory exists
       - /var/run/docker.sock:/var/run/docker.sock:ro # optional, for docker integrations
       - /samba/midia:/samba/midia:ro
     env_file:
