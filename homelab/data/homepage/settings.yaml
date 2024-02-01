@@ -28,3 +28,6 @@ layout:
   - Midia:
       columns: 4
       style: row
+  - Work:
+      columns: 4
+      style: row

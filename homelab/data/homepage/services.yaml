@@ -155,3 +155,25 @@
     #       password: {{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}
     #     server: my-docker
     #     container: qbittorrent
+
+- Work:
+  - Gitea:
+      href: https://git.caiol.duckdns.org
+      icon: gitea.png
+      description: Git Server
+      server: my-docker
+      container: gitea
+
+  - Stirling:
+      href: http://192.168.0.12:8090
+      icon: stirling-pdf.png
+      description: PDF Toolbox
+      server: my-docker
+      container: stirling-pdf
+
+  - n8n:
+      href: http://192.168.0.12:5678
+      icon: n8n.png
+      description: Workflow Automation
+      server: my-docker
+      container: n8n
