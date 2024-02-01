@@ -4,11 +4,10 @@ services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
-    ports:
-      - 3000:3000
     volumes:
       - ./config/homepage:/app/config # Make sure your local config directory exists
       - /var/run/docker.sock:/var/run/docker.sock:ro # optional, for docker integrations
+      - /samba/midia:/samba/midia:ro
     env_file:
       - ./env/homepage.env
     restart: unless-stopped
@@ -24,7 +23,8 @@ services:
       - MARIADB_AUTO_UPGRADE=1
       - MARIADB_DISABLE_UPGRADE_BACKUP=1
     volumes:
-      - ./data/nextcloud-db:/var/lib/mysql
+      # - ./data/nextcloud-db:/var/lib/mysql
+      - /samba/midia/data/nextcloud-db:/var/lib/mysql
     env_file:
       - ./env/nextcloud-db.env
     networks:
@@ -42,7 +42,8 @@ services:
     container_name: nextcloud-app
     restart: unless-stopped
     volumes:
-      - ./data/nextcloud-app:/var/www/html
+      # - ./data/nextcloud-app:/var/www/html
+      - /samba/midia/data/nextcloud-app:/var/www/html
     environment:
       - MYSQL_HOST=nextcloud-db
       - REDIS_HOST=nextcloud-redis
@@ -52,6 +53,40 @@ services:
     depends_on:
       - nextcloud-db
       - nextcloud-redis
+    networks:
+      - proxy-tier
+
+  gitea:
+    image: gitea/gitea:1.21.4
+    container_name: gitea
+    restart: unless-stopped
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - GITEA__database__DB_TYPE=mysql
+      - GITEA__database__HOST=gitea-db
+    env_file:
+      - ./env/gitea-db.env
+    volumes:
+      - ./data/gitea-app:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "3000:3000"
+      - "2321:22"
+    networks:
+      - proxy-tier
+    depends_on:
+      - gitea-db
+
+  gitea-db:
+    image: mariadb:10.5
+    container_name: gitea-db
+    restart: unless-stopped
+    env_file:
+      - ./env/gitea-db.env
+    volumes:
+      - ./data/gitea-db:/var/lib/mysql
     networks:
       - proxy-tier
 
