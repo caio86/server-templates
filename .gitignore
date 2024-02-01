@@ -13,3 +13,5 @@ letsencrypt/
 nextcloud**
 
 logs/
+
+data/
