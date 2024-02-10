@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  modded-minecraft-server:
+    image: itzg/minecraft-server:java8-multiarch
+    container_name: modded-minecraft-server
+    stdin_open: true
+    tty: true
+    environment:
+      - MEMORY=2G # set this based on number of players you expect
+      - EULA=TRUE
+      - VERSION=1.16.5 # it's a good idea to set this statically, and only update minor versions
+      - SERVER_NAME="Mods TOP"
+      - MAX_PLAYERS=4
+      - ICON=https://venngage-wordpress.s3.amazonaws.com/uploads/2022/09/meme_ralph_wiggum_diving_through_window-931x1024.png
+      # updating to a new major version on the same world will make borders between new and old chunks clash
+      - TYPE=FORGE
+      - ONLINE_MODE=FALSE
+    networks:
+      - proxy-tier
+    volumes:
+      - ./data:/data
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 25566:25565/udp
+      - 25566:25565/tcp
+    restart: unless-stopped
+
+networks:
+  proxy-tier:
+    external: true
