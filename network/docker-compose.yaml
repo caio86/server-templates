@@ -30,7 +30,8 @@ services:
     image: klutchell/unbound
     restart: unless-stopped
     networks:
-      - proxy-tier
+      proxy-tier:
+        ipv4_address: 172.23.0.4
 
 networks:
   proxy-tier:
