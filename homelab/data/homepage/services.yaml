@@ -6,7 +6,7 @@
     - Pi-hole:
         href: http://pi-hole.local/admin
         icon: pi-hole.png
-        description: DNS Server and ad-blocker
+        # description: DNS Server and ad-blocker
         widget:
           type: pihole
           url: http://pihole:80
@@ -17,28 +17,28 @@
     - Nginx-proxy-manager:
         href: http://192.168.0.12:81
         icon: nginx-proxy-manager.png
-        description: Reverse Proxy
+        # description: Reverse Proxy
         server: my-docker
         container: nginx-proxy-manager
 
     - Portainer:
         href: http://portainer.local
         icon: portainer.png
-        description: Docker Manager
+        # description: Docker Manager
         server: my-docker
         container: portainer
 
     - Cockpit:
         href: https://192.168.0.12:9090
         icon: cockpit.png
-        description: Admin Panel
+        # description: Admin Panel
         siteMonitor: https://192.168.0.12:9090
 
 - Pessoal:
     - Nextcloud:
         href: https://nextcloud.caiol.duckdns.org
         icon: nextcloud.png
-        description: Personal Cloud Storage
+        # description: Personal Cloud Storage
         siteMonitor: https://nextcloud.caiol.duckdns.org
         widget:
           type: nextcloud
@@ -48,7 +48,7 @@
 
     - Minecraft:
         icon: minecraft.png
-        description: Vanilla Minecraft 1.16.1 server
+        # description: Vanilla Minecraft 1.16.1 server
         widget:
           type: minecraft
           url: http://minecraft.local
@@ -58,7 +58,7 @@
     - Firefly:
         href: http://firefly.local
         icon: firefly.png
-        description: Finances Manager
+        # description: Finances Manager
         server: my-docker
         container: firefly-iii
 
@@ -66,7 +66,7 @@
     - Jellyfin:
         href: http://jellyfin.local
         icon: jellyfin.png
-        description: Media Server
+        # description: Media Server
         siteMonitor: https://jellyfin.europa-server.duckdns.org
         widget:
           type: jellyfin
@@ -78,7 +78,7 @@
     - Jellystat:
         href: http://jellystat.local
         icon: jellystat.png
-        description: Jellyfin Statistics
+        # description: Jellyfin Statistics
         widget:
           type: jellyfin
           url: http://192.168.0.12:8096
@@ -91,7 +91,7 @@
     - Radarr:
         href: http://radarr.local
         icon: radarr.png
-        description: Movie Manager
+        # description: Movie Manager
         widget:
           type: radarr
           url: http://radarr:7878
@@ -102,7 +102,7 @@
     - Sonarr:
         href: http://sonarr.local
         icon: sonarr.png
-        description: TV Show Manager
+        # description: TV Show Manager
         widget:
           type: sonarr
           url: http://sonarr:8989
@@ -113,7 +113,7 @@
     - Bazarr:
         href: http://bazarr.local
         icon: bazarr.png
-        description: Media Manager
+        # description: Media Manager
         widget:
           type: bazarr
           url: http://bazarr:6767
@@ -124,7 +124,7 @@
     - Prowlarr:
         href: http://prowlarr.local
         icon: prowlarr.png
-        description: Indexer Manager
+        # description: Indexer Manager
         widget:
           type: prowlarr
           url: http://prowlarr:9696
@@ -160,14 +160,14 @@
   - Gitea:
       href: https://git.caiol.duckdns.org
       icon: gitea.png
-      description: Git Server
+      # description: Git Server
       server: my-docker
       container: gitea
 
   - Stirling:
       href: http://192.168.0.12:8090
       icon: stirling-pdf.png
-      description: PDF Toolbox
+      # description: PDF Toolbox
       server: my-docker
       container: stirling-pdf
 
