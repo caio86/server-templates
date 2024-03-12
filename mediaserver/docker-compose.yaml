@@ -1,18 +1,13 @@
 version: "3.8"
 services:
-  sonarr:
-    image: lscr.io/linuxserver/sonarr:latest
-    container_name: sonarr
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
     environment:
-      - PUID=1000
-      - PGID=900
+      - LOG_LEVEL=debug
       - TZ=America/Sao_Paulo
     volumes:
-      - /samba/teste/config/sonarr:/config
-      - /samba/teste/series:/tv #optional
-      - /samba/teste/downloads:/downloads #optional
-    ports:
-      - 8989:8989
+      - /samba/midia/midiaserver/config/jellyseerr:/app/config
     restart: unless-stopped
     networks:
       - proxy-tier
@@ -25,9 +20,27 @@ services:
       - PGID=900
       - TZ=America/Sao_Paulo
     volumes:
-      - /samba/teste/config/prowlarr:/config
-    ports:
-      - 9696:9696
+      - /samba/midia/midiaserver/config/prowlarr:/config
+    # ports:
+    # - 9696:9696
+    restart: unless-stopped
+    networks:
+      - proxy-tier
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=900
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /samba/midia/midiaserver/config/sonarr:/config
+      - /samba/midia/midiaserver/series:/tv #optional
+      - /samba/midia/midiaserver/anime/seriados:/anime
+      - /samba/midia/midiaserver/downloads:/downloads #optional
+    # ports:
+    #   - 8989:8989
     restart: unless-stopped
     networks:
       - proxy-tier
@@ -40,34 +53,59 @@ services:
       - PGID=900
       - TZ=America/Sao_Paulo
     volumes:
-      - /samba/teste/config/radarr:/config
-      - /samba/teste/filmes:/movies #optional
-      - /samba/teste/downloads:/downloads #optional
-    ports:
-      - 7878:7878
+      - /samba/midia/midiaserver/config/radarr:/config
+      - /samba/midia/midiaserver/filmes:/movies #optional
+      - /samba/midia/midiaserver/anime/filmes:/anime
+      - /samba/midia/midiaserver/downloads:/downloads #optional
+    # ports:
+    #   - 7878:7878
     restart: unless-stopped
     networks:
       - proxy-tier
 
-  # deluge:
-  #   image: lscr.io/linuxserver/deluge:latest
-  #   container_name: deluge
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=900
-  #     - TZ=America/Sao_Paulo
-  #     - DELUGE_LOGLEVEL=error #optional
-  #   volumes:
-  #     - /samba/teste/config:/config
-  #     - /samba/teste/downloads:/downloads
-  #   ports:
-  #     - 8112:8112
-  #     - 6881:6881
-  #     - 6881:6881/udp
-  #     - 58846:58846 #optional
-  #   restart: unless-stopped
-  #   networks:
-  #     - proxy-tier
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:latest
+    container_name: lidarr
+    environment:
+      - PUID=1000
+      - PGID=900
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /samba/midia/midiaserver/config/lidarr:/config
+      - /samba/midia/midiaserver/music:/music #optional
+      - /samba/midia/midiaserver/downloads:/downloads #optional
+    restart: unless-stopped
+    networks:
+      - proxy-tier
+
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=900
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /samba/midia/midiaserver/config/bazarr:/config
+      - /samba/midia/midiaserver/anime:/anime
+      - /samba/midia/midiaserver/filmes:/movies
+      - /samba/midia/midiaserver/series:/tv
+    # ports:
+    #   - 6767:6767
+    restart: unless-stopped
+    networks:
+      - proxy-tier
+
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr
+    container_name: recyclarr
+    user: 1000:900
+    environment:
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /samba/midia/midiaserver/config/recyclarr:/config
+    networks:
+      - proxy-tier
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
@@ -78,16 +116,50 @@ services:
       - TZ=America/Sao_Paulo
       - WEBUI_PORT=8080
     volumes:
-      - /samba/teste/config:/config
-      - /samba/teste/downloads:/downloads
+      - /samba/midia/midiaserver/config:/config
+      - /samba/midia/midiaserver/downloads:/downloads
     ports:
-      - 8080:8080
       - 6881:6881
       - 6881:6881/udp
     restart: unless-stopped
     networks:
       - proxy-tier
 
+  jellystat-db:
+    image: postgres:15.2
+    container_name: jellystat-db
+    environment:
+      POSTGRES_DB: "jfstat"
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mypassword
+    volumes:
+      - /samba/midia/midiaserver/config/jellystat/db:/var/lib/postgresql/data # Mounting the volume
+    restart: unless-stopped
+    networks:
+      - jellystat
+
+  jellystat:
+    image: cyfershepard/jellystat:latest
+    container_name: jellystat
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_IP: jellystat-db
+      POSTGRES_PORT: 5432
+      JWT_SECRET: "my-secret-jwt-key"
+      TZ: America/Sao_Paulo
+    # ports:
+    #   - "3000:3000" #Server Port
+    volumes:
+      - /samba/midia/midiaserver/config/jellystat/backup:/app/backend/backup-data # Mounting the volume
+    restart: unless-stopped
+    networks:
+      - proxy-tier
+      - jellystat
+    depends_on:
+      - jellystat-db
+
 networks:
   proxy-tier:
     external: true
+  jellystat:
