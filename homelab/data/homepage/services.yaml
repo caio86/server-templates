@@ -34,6 +34,12 @@
         # description: Admin Panel
         siteMonitor: https://192.168.0.12:9090
 
+    - RedBot:
+        icon: https://avatars.githubusercontent.com/u/23690422?s=48&v=4
+        # description: Discord Bot
+        server: my-docker
+        container: redbot
+
 - Pessoal:
     - Nextcloud:
         href: https://nextcloud.caiol.duckdns.org
@@ -46,6 +52,17 @@
           username: {{HOMEPAGE_VAR_NEXTCLOUD_USER}}
           password: {{HOMEPAGE_VAR_NEXTCLOUD_PASSWORD}}
 
+    - Immich:
+        href: https://immich.caiol.duckdns.org
+        icon: immich.png
+        # description: Personal Video Manager
+        widget:
+          type: immich
+          url: https://immich.caiol.duckdns.org
+          key: {{HOMEPAGE_VAR_IMMICH_API_KEY}}
+        server: my-docker
+        container: immich_server
+
     - Minecraft:
         icon: minecraft.png
         # description: Vanilla Minecraft 1.16.1 server
@@ -55,12 +72,26 @@
         server: my-docker
         container: vanilla-minecraft-server
 
+    - Paperless:
+        href: http://paperless.caiol.lan
+        icon: paperless.png
+        # description: Document Manager
+        server: my-docker
+        container: paperless
+
     - Firefly:
         href: http://firefly.caiol.lan
         icon: firefly.png
         # description: Finances Manager
         server: my-docker
         container: firefly-iii
+
+    - Firefly Importer:
+        href: http://fireflydi.caiol.lan
+        icon: firefly.png
+        # description: Finances Importer
+        server: my-docker
+        container: firefly-iii-importer
 
 - Midia:
     - Jellyfin:
@@ -74,6 +105,17 @@
           enableBlocks: false
           enableNowPlaying: true
           key: {{HOMEPAGE_VAR_JELLYFIN_API_KEY}}
+
+    - Jellyseer:
+        href: https://jellyseerr.caiol.duckdns.org
+        icon: https://jellyseerr.caiol.duckdns.org/os_logo_square.png
+        # description: Media Download Manager
+        widget:
+          type: jellyseerr
+          url: http://Jellyseerr:5055
+          key: {{HOMEPAGE_VAR_JELLYSEERR_API_KEY}}
+        server: my-docker
+        container: jellyseerr
 
     - Jellystat:
         href: http://jellystat.caiol.lan
@@ -153,6 +195,13 @@
       server: my-docker
       container: gitea
 
+  - n8n:
+      href: https://n8n.caiol.duckdns.org
+      icon: n8n.png
+      # description: Workflow Automation
+      server: my-docker
+      container: n8n
+
   - Stirling:
       href: http://stirling.caiol.lan
       icon: stirling-pdf.png
@@ -160,9 +209,9 @@
       server: my-docker
       container: stirling-pdf
 
-  - n8n:
-      href: http://192.168.0.12:5678
-      icon: n8n.png
-      description: Workflow Automation
+  - it-Tools:
+      href: http://it-tools.caiol.lan
+      icon: it-tools.png
+      # description: IT Toolbox
       server: my-docker
-      container: n8n
+      container: it-tools
