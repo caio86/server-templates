@@ -14,6 +14,12 @@
         server: my-docker
         container: pihole
 
+    - Uptime-kuma:
+        href: http://192.168.0.12:30001
+        icon: uptime-kuma.png
+        server: my-docker
+        container: uptime-kuma
+
     - Nginx-proxy-manager:
         href: http://192.168.0.12:81
         icon: nginx-proxy-manager.png
