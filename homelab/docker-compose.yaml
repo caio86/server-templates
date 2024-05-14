@@ -73,8 +73,6 @@ services:
       - ./data/gitea-app:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-    ports:
-      - "2321:22"
     networks:
       - proxy-tier
     depends_on:
