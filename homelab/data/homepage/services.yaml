@@ -15,13 +15,13 @@
         container: pihole
 
     - Uptime-kuma:
-        href: http://192.168.0.12:30001
+        href: http://europa.lan:30001
         icon: uptime-kuma.png
         server: my-docker
         container: uptime-kuma
 
     - Nginx-proxy-manager:
-        href: http://192.168.0.12:81
+        href: http://europa.lan:81
         icon: nginx-proxy-manager.png
         # description: Reverse Proxy
         server: my-docker
@@ -33,12 +33,6 @@
         # description: Docker Manager
         server: my-docker
         container: portainer
-
-    - Cockpit:
-        href: https://192.168.0.12:9090
-        icon: cockpit.png
-        # description: Admin Panel
-        siteMonitor: https://192.168.0.12:9090
 
     - RedBot:
         icon: https://avatars.githubusercontent.com/u/23690422?s=48&v=4
@@ -107,7 +101,7 @@
         siteMonitor: https://jellyfin.europa-server.duckdns.org
         widget:
           type: jellyfin
-          url: http://192.168.0.12:8096
+          url: http://europa.lan:8096
           enableBlocks: false
           enableNowPlaying: true
           key: {{HOMEPAGE_VAR_JELLYFIN_API_KEY}}
@@ -129,7 +123,7 @@
         # description: Jellyfin Statistics
         widget:
           type: jellyfin
-          url: http://192.168.0.12:8096
+          url: http://europa.lan:8096
           enableBlocks: true
           enableNowPlaying: false
           key: {{HOMEPAGE_VAR_JELLYFIN_API_KEY}}
