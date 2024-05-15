@@ -98,7 +98,7 @@
         href: http://jellyfin.caiol.lan
         icon: jellyfin.png
         # description: Media Server
-        siteMonitor: https://jellyfin.europa-server.duckdns.org
+        siteMonitor: https://jellyfin.caiol.duckdns.org
         widget:
           type: jellyfin
           url: http://europa.lan:8096
