@@ -34,6 +34,12 @@
         server: my-docker
         container: portainer
 
+    - Ntfy:
+        href: https://ntfy.caiol.duckdns.org
+        icon: ntfy.png
+        server: my-docker
+        container: ntfy
+
     - RedBot:
         icon: https://avatars.githubusercontent.com/u/23690422?s=48&v=4
         # description: Discord Bot

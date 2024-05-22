@@ -13,6 +13,19 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - proxy-tier
+  ntfy:
+    image: binwiederhier/ntfy
+    container_name: ntfy
+    restart: always
+    command:
+      - serve
+    environment:
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /var/cache/ntfy:/var/cache/ntfy
+      - /etc/ntfy:/etc/ntfy
+    networks:
+      - proxy-tier
 
 volumes:
   portainer-data:
