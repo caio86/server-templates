@@ -15,7 +15,7 @@
         container: pihole
 
     - Uptime-kuma:
-        href: http://europa.lan:30001
+        href: http://uptime-kuma.caiol.lan
         icon: uptime-kuma.png
         server: my-docker
         container: uptime-kuma
