@@ -9,7 +9,7 @@ services:
     volumes:
       - ./data/homepage:/app/config # Make sure your local config directory exists
       - /var/run/docker.sock:/var/run/docker.sock:ro # optional, for docker integrations
-      - /samba/midia:/samba/midia:ro
+      - /samba/midia:/disk1:ro
     env_file:
       - ./env/homepage.env
     restart: unless-stopped

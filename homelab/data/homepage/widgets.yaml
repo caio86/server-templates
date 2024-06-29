@@ -25,4 +25,4 @@
     label: Storage
     disk:
       - /
-      - /samba/midia
+      - /disk1
