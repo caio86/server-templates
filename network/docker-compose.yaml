@@ -3,6 +3,7 @@ services:
   wireguard:
     image: lscr.io/linuxserver/wireguard:latest
     container_name: wireguard
+    network_mode: host # remember to change net interface in postUp and postDown on wg0
     restart: unless-stopped
     cap_add:
       - NET_ADMIN
@@ -24,8 +25,8 @@ services:
       # - /lib/modules:/lib/modules #optional
     ports:
       - 51820:51820/udp
-    sysctls:
-      - net.ipv4.conf.all.src_valid_mark=1
+    # sysctls: # disable this if using network_mode: host
+    #   - net.ipv4.conf.all.src_valid_mark=1
 
   pihole:
     container_name: pihole
